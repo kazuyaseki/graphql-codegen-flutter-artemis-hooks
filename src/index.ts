@@ -15,18 +15,14 @@ export const plugin: PluginFunction<
 > = (
   _schema: GraphQLSchema,
   documents: Types.DocumentFile[],
-  _config: FlutterArtemisHooksPluginConfig
+  config: FlutterArtemisHooksPluginConfig
 ) => {
-  console.log('hige');
   const allAst = concatAST(documents.map((v) => v.document));
-
-  console.log(allAst.definitions.map((d) => d.kind));
+  const isNullSafety = !config.isNonNullSafety;
 
   const allQueryies: OperationDefinitionNode[] = allAst.definitions.filter(
     (d) => d.kind === Kind.OPERATION_DEFINITION
   ) as OperationDefinitionNode[];
-
-  console.log(allQueryies);
 
   const queryBuilder = (
     queryName: string,
@@ -59,20 +55,16 @@ ${queryName}$${operationStr}ReturnType use${queryName}Query<DataType>(BuildConte
 }`;
   };
 
-  console.log(allQueryies);
-
   return {
     content:
-      packagesImportStr(
-        'package:pocket_musubi_native/service/graphql_client_service/generated/graphql_api.dart'
-      ) +
-      useQueryString(true) +
+      packagesImportStr(config.artemisImportPath) +
+      useQueryString(isNullSafety) +
       allQueryies.map((q) =>
         queryBuilder(
           q.name.value,
           q.operation,
           q.variableDefinitions?.length > 0,
-          true
+          isNullSafety
         )
       ).join(`
     

@@ -4,5 +4,6 @@ export type FlutterArtemisHooksPluginConfig = RawClientSideBasePluginConfig &
   Config;
 
 export type Config = {
-  isNonNullSafety?: string;
+  artemisImportPath: string;
+  isNonNullSafety?: boolean;
 };

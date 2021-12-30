@@ -2,4 +2,8 @@ schema: test_gql/schema.graphql
 documents: './test_gql/**/*.graphql'
 generates:
   output.dart:
-    - ./build/src/index.js
+    config:
+      artemisImportPath: package:your_project/your_artemis_generated/graphql_api.dart
+      isNonNullSafety: true
+    plugins:
+      - ./build/src/index.js
