@@ -1,6 +1,6 @@
 {
   "name": "graphql-codegen-flutter-artemis-hooks",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "GraphQL Code Generator plugin for generating hooks of Flutter artemis",
   "license": "MIT",
   "scripts": {
