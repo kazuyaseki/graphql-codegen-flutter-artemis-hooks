@@ -1,0 +1,5 @@
+schema: test_gql/schema.graphql
+documents: './test_gql/**/*.graphql'
+generates:
+  output.dart:
+    - ./build/src/index.js

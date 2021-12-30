@@ -1,0 +1,21 @@
+type Object {
+  id: ID!
+  name: String!
+}
+
+type MutationResult {
+  result: String!
+}
+
+type Mutation {
+  testMutation(variable: String!): MutationResult!
+}
+
+type Query {
+  objects: [Object]
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

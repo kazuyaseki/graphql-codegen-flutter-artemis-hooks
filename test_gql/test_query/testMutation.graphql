@@ -1,0 +1,5 @@
+mutation TestMutation($variable: String!) {
+  testMutation(variable: $variable) {
+    result
+  }
+}
