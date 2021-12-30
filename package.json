@@ -1,7 +1,7 @@
 {
-  "name": "graphql-codegen-apollo-next-ssr",
-  "version": "1.7.1",
-  "description": "GraphQL Code Generator plugin for generating a functions to read and write from the apollo cache",
+  "name": "graphql-codegen-flutter-artemis-hooks",
+  "version": "1.0.0",
+  "description": "GraphQL Code Generator plugin for generating hooks of Flutter artemis",
   "license": "MIT",
   "scripts": {
     "test": "jest",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/correttojs/graphql-codegen-apollo-next-ssr"
+    "url": "https://github.com/kazuyaseki/graphql-codegen-flutter-artemis-hooks"
   },
   "dependencies": {
     "@graphql-codegen/plugin-helpers": "^2.0.0",
@@ -45,12 +45,12 @@
     "ts-jest": "27.1.2",
     "typescript": "4.5.4"
   },
-  "author": "Fabio Benedetti",
+  "author": "Kazuya Seki",
   "keywords": [
     "graphql",
     "codegen",
-    "apollo-client",
-    "nextjs",
+    "flutter",
+    "artemis",
     "grapgql-codegen"
   ]
 }
