@@ -6,7 +6,7 @@ this is graphql-codegen plugin to generate Flutter artemis hooks.
 
 ### Install
 
-```
+```bash
 npm i graphql-codegen-flutter-artemis-hooks
 ```
 
@@ -14,7 +14,7 @@ npm i graphql-codegen-flutter-artemis-hooks
 
 you need to specify path for generated file by artemis
 
-```
+```yml
 schema: your_schema_file.graphql
 documents: './your_project/**/*.graphql'
 generates:
@@ -31,7 +31,7 @@ then run the plugin!!
 
 for instance, if you have defined GraphQL as following
 
-```
+```graphql
 query ExampleQuery {
   objects {
     id
@@ -48,7 +48,7 @@ mutation TestMutation($variable: String!) {
 
 and using this plugin would generate code like this.
 
-```
+```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -111,7 +111,7 @@ TestMutation$MutationReturnType useTestMutationQuery<DataType>(BuildContext cont
 
 Then you can use the generated type-safe hooks as following
 
-```
+```dart
 class PageWidget extends HookWidget {
   const PageWidget({Key key}) : super(key: key);
 
