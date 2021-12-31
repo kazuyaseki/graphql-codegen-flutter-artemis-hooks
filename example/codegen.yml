@@ -4,6 +4,6 @@ generates:
   test/output.dart:
     config:
       artemisImportPath: package:your_project/your_artemis_generated/graphql_api.dart
-      isNonNullSafety: true
+      isNonNullSafety: false
     plugins:
-      - ./build/src/index.js
+      - graphql-codegen-flutter-artemis-hooks

@@ -135,5 +135,5 @@ This project is assumes you would use the following packages
 
 ## Configuration
 
-- `artemisImportPath`:
+- `artemisImportPath`: path to your generated file by artemis
 - `isNonNullSafety` (default: null): set this to `true` if you want to generate code that is not null safety
