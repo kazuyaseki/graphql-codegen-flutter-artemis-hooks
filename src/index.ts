@@ -24,37 +24,6 @@ export const plugin: PluginFunction<
     (d) => d.kind === Kind.OPERATION_DEFINITION
   ) as OperationDefinitionNode[];
 
-  const queryBuilder = (
-    queryName: string,
-    operationType: OperationTypeNode,
-    hasVariables: boolean,
-    isNullSafety: boolean
-  ) => {
-    const operationStr = capitalizeFirstLetter(operationType);
-
-    return `class ${queryName}$${operationStr}ReturnType {
-  bool isLoading;
-  OperationException${isNullSafety ? '?' : ''} exception;
-  ${queryName}$${operationStr}${isNullSafety ? '?' : ''} data;
-
-  ${queryName}$${operationStr}ReturnType(this.isLoading, this.exception, this.data);
-}
-
-${queryName}$${operationStr}ReturnType use${queryName}Query<DataType>(BuildContext context${
-      hasVariables ? `, ${queryName}Arguments variables` : ''
-    }) {
-  final result = useQuery<${queryName}$${operationStr}>(context, ${queryName
-      .match(/[A-Z][a-z]+/g)
-      .map((s) => s.toUpperCase())
-      .join('_')}_${operationStr.toUpperCase()}_DOCUMENT${
-      hasVariables ? `, variables.toJson()` : ''
-    });
-  return ${queryName}$${operationStr}ReturnType(result.isLoading, result.exception, result.data == null ? null : ${queryName}$${operationStr}.fromJson(result.data${
-      isNullSafety ? '!' : ''
-    }));
-}`;
-  };
-
   return {
     content:
       packagesImportStr(config.artemisImportPath) +
@@ -68,8 +37,40 @@ ${queryName}$${operationStr}ReturnType use${queryName}Query<DataType>(BuildConte
         )
       ).join(`
     
-    `),
+`),
   };
+};
+
+const queryBuilder = (
+  queryName: string,
+  operationType: OperationTypeNode,
+  hasVariables: boolean,
+  isNullSafety: boolean
+) => {
+  const operationStr = capitalizeFirstLetter(operationType);
+
+  return `
+class ${queryName}$${operationStr}ReturnType {
+  bool isLoading;
+  OperationException${isNullSafety ? '?' : ''} exception;
+  ${queryName}$${operationStr}${isNullSafety ? '?' : ''} data;
+
+  ${queryName}$${operationStr}ReturnType(this.isLoading, this.exception, this.data);
+}
+
+${queryName}$${operationStr}ReturnType use${queryName}Query<DataType>(BuildContext context${
+    hasVariables ? `, ${queryName}Arguments variables` : ''
+  }) {
+  final result = useQuery<${queryName}$${operationStr}>(context, ${queryName
+    .match(/[A-Z][a-z]+/g)
+    .map((s) => s.toUpperCase())
+    .join('_')}_${operationStr.toUpperCase()}_DOCUMENT${
+    hasVariables ? `, variables.toJson()` : ''
+  });
+  return ${queryName}$${operationStr}ReturnType(result.isLoading, result.exception, result.data == null ? null : ${queryName}$${operationStr}.fromJson(result.data${
+    isNullSafety ? '!' : ''
+  }));
+}`;
 };
 
 function capitalizeFirstLetter(string) {
@@ -113,7 +114,9 @@ const useQueryString = (isNullSafety: boolean) =>
     return () {};
   }, []);
   return state.value;
-}`
+}
+
+`
     : `
 QueryResult useQuery<DataType>(
     BuildContext context, DocumentNode query,
